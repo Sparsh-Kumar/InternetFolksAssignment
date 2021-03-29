@@ -8,7 +8,7 @@ const uniqueValidator = require ('mongoose-unique-validator');
 const bcrypt = require ('bcrypt');
 const { config } = require (path.resolve (__dirname, '..', '..', 'config', 'config'));
 const { validateEmail, validatePassword, validateNames, validatePhone } = require (path.resolve (__dirname, '..', '..', 'validators', 'validator'));
-
+const { Role } = require (path.resolve (__dirname, 'Role')); // if you want to make use of any ref of any model, then you first need to import that model, so that it will not pose any problem
 
 // defining the UserSchema
 
@@ -110,7 +110,7 @@ UserSchema.statics.comparePassword = function (text, hash) {
 
 // defining the User Model
 
-const User = mongoose.model ('user', UserSchema);
+const User = mongoose.model ('user', UserSchema, 'users');
 
 // exporting the User Model
 
