@@ -1,0 +1,9 @@
+
+1. You run an EdTech-Management SaaS company.
+2. On your platform, Schools are registered, along with their Students.
+3. To restrict access, you use Scope-based system, 
+4. Roles in the Application (ex: Admin, Student, Principal)
+5. Where any Role (ex: Admin, Student, Principal) 
+must have a scope (ex: school-create, user-get) with them 
+to perform any actions on the resources (ex: User, School)
+

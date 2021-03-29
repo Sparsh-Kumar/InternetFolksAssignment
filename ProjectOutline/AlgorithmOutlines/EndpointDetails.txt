@@ -1,0 +1,16 @@
+
+// HERE THE VALUES SUCH AS user-get, user-edit, user-remove ARE THE SCOPES THAT A ROLE SHOULD HAVE
+
+1. USER
+    -> Signup
+    -> Sign in 
+    -> Get Single -> user-get
+    -> Get List -> user-get
+    -> Update  Single -> user-edit
+    -> Remove Single -> user-remove
+
+2. ROLE
+    -> Create a Role
+    -> Get List -> role-get
+    -> Update Single -> role-edit
+    -> Remove Single -> role-remove

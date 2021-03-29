@@ -1,0 +1,38 @@
+
+
+THERE ARE FOUR ROLES IN THIS APPLICATION [ADMIN, STUDENT, PRINCIPAL, NONE]
+
+1. ADMIN [ AN ADMIN HAS ALL SCOPES AVAILABLE AND HAS ALL THE PERMISSIONS ]
+
+2. STUDENT HAS THE FOLLOWING PERMISSIONS
+
+    a. It can get its account details (user-get).
+    b. It can update its account details (user-edit).
+    c. It can remove its account (user-remove).
+
+3. PRINCIPAL HAS THE FOLLOWING PERMISSIONS
+
+    a. It can create a profile of a student (profile-create).
+    b. It can get the profiles of all students in its school only (profile-get).
+    c. It can update the profile of a student if the student is of its school (profile-edit).
+    d. It can remove the profile of a student if the student if of its school (profile-remove).
+    e. It can create a school if the school in not already created by him. 
+    f. Here we are assuming that a principal can only create one school as given in database structure of document.
+
+
+4. ADMIN HAS THE FOLLOWING PERMISSIONS
+
+    a.  It can remove a user from the database. (user-remove)
+            if the user that has to be removed is a PRINCIPAL
+                then
+                    remove its profile if any
+                    remove the school (if associated with the profile)
+            else:
+                just remove the profile of the user (if any).
+
+    b. It can edit role of any user (role-edit)
+        if the user has a role:
+            then change it's scopes and type of role (ADMIN, STUDENT, PRINCIPAL);
+    c. It can remove role of any user (role-remove)
+        if the user has a role,
+            then remove the role of that user 
