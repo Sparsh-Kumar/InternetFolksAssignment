@@ -59,7 +59,7 @@ const signin = (req, res) => {
 
             const access_token = jwt.sign ({
                 _id: foundUser._id
-            }, config.ACCESS_TOKEN_SECRET, { expiresIn: 240 }); // expiring the access token in 60 seconds
+            }, config.ACCESS_TOKEN_SECRET, { expiresIn: 240 }); // expiring the access token in 240 seconds or 4 mins
 
             const refresh_token = jwt.sign ({
                 _id: foundUser._id
