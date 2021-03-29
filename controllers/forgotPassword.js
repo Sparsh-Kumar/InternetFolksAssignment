@@ -54,7 +54,7 @@ const forgotPassword = (req, res) => {
             }, secret_key, { expiresIn: 240 }) // expiring the token in 240 seconds or 4 mins.
 
             // send mail to the user
-            return mailer (config.SENDER_USER, email, 'Request for password reset (BY SPARSH KUMAR)', 'Reset your password by clicking on the link below (BY SPARSH KUMAR)', `<p>Reset your password Click here <a href='${config.PROJECT_URL}:${port}/api/reset/${foundUser._id}/${reset_token}'>Reset Password</a></p>`);
+            return mailer (config.SENDER_USER, email, 'Request for password reset (BY SPARSH KUMAR)', 'Reset your password by clicking on the link below (BY SPARSH KUMAR)', `<p>Reset your password Click here <a href='${config.PROJECT_URL}:${port}/api/resetpassword/${foundUser._id}/${reset_token}'>Reset Password</a></p>`);
 
         }).then ((data) => {
 
