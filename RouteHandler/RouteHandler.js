@@ -27,6 +27,9 @@ const { createSchool } = require (path.resolve (__dirname, '..', 'controllers', 
 const { getAllStudents } = require (path.resolve (__dirname, '..', 'controllers', 'getAllStudents')); // importing the getAllStudents controller for getting students in a particular school using schoolId
 const { getAllRoles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllRoles')); // importing the getAllRoles controller to get all the roles available
 const { createRole } = require (path.resolve (__dirname, '..', 'controllers', 'createRole')); // importing the createRole controller to create a new Role (only usable by admin account)
+const { removeRole } = require (path.resolve (__dirname, '..', 'controllers', 'removeRole')); // importing the removeRole controller to remove an existing role
+const { updateUser } = require (path.resolve (__dirname, '..', 'controllers', 'updateUser')); // importing the updateUser controller to update the first name, or last name of the user
+const { editRole } = require (path.resolve (__dirname, '..', 'controllers', 'editRole')); // importing  the editRole controller to edit the scopes array in Role document, this is only done by admin
 
 // defining the register route for admin, student and principal
 
@@ -49,6 +52,13 @@ RouteHandler.get ('/dashboard/getsingle/:userId', loginMiddleware, checkRole (['
 
 RouteHandler.get ('/dashboard/getuserslist', loginMiddleware, checkRole (['admin', 'student', 'principal']), checkScope ('user-get'), getList); // added checkScope middleware after loginMiddleware
 
+
+// route for updating values of a user by a logged in user, a logged in user can only update his / her values not someone other's
+// the values that can be updated are first_name, last_name
+// a user should not be able to change the role, as a user then can sign up with student account and then can get privledges of admin account
+// admin, student and principal role are allowed to access this endpoint
+
+RouteHandler.patch ('/dashboard/updateuser', loginMiddleware, checkRole (['admin', 'student', 'principal']), checkScope ('user-edit'), updateUser); // this is the endpoint for updating the user information including first_name, last_name
 
 // route for making Profile of a user, a logged in user can make its profile only, no other user can make someone else's profile
 // only student role can make their profiles
@@ -99,6 +109,16 @@ RouteHandler.get ('/dashboard/getallroles', loginMiddleware, checkRole (['studen
 // only admin is able to use this route, otherwise an error is thrown
 
 RouteHandler.post ('/dashboard/createrole', loginMiddleware, checkRole (['admin']), checkScope ('role-create'), createRole); // this is the api endpoint for creating a new role
+
+// route for removing a role
+// only admin is able to use this route, otherwise an error is thrown
+
+RouteHandler.delete ('/dashboard/removerole', loginMiddleware, checkRole (['admin']), checkScope ('role-remove'), removeRole); // this is the api endpoint for removing an existing role
+
+// route for editing a role scope
+// only admin is able to use this route, otherwise an error is thrown
+
+RouteHandler.patch ('/dashboard/updaterole', loginMiddleware, checkRole (['admin']), checkScope ('role-edit'), editRole); // this is the api endpoint for editing scopes in a role document
 
 // exporting the RouteHandler
 module.exports = {

@@ -4,8 +4,9 @@
 
 const mongoose = require ('mongoose');
 const path = require ('path');
-const { validateEmail, validatePhone, validatePassword, validateNames, validateRole } = require (path.resolve (__dirname, '..', 'validators', 'validator'));
+const { validateEmail, validatePhone, validatePassword, validateNames } = require (path.resolve (__dirname, '..', 'validators', 'validator'));
 const { User } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'User'));
+const { Role } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'Role'));
 
 // defining the registerUsers function
 
@@ -16,14 +17,6 @@ const registerUsers = (first_name = undefined, last_name = undefined, email = un
 
         if ((!validateNames (first_name)) || (!validateNames (last_name)) || (!validateEmail (email)) || (!validatePhone (mobile)) || (!validatePassword (password))) {
             throw new Error ('please enter all the values in a proper format');
-        }
-
-        // if the role is not a valid role
-        // then throw an error
-
-        let roleId = validateRole (role);
-        if (!roleId) {
-            throw new Error ('the given role is not a valid role');
         }
 
         // if every thing is in correct format then
@@ -42,13 +35,25 @@ const registerUsers = (first_name = undefined, last_name = undefined, email = un
                 throw new Error ('User already exists');
             }
 
+            return Role.findOne ({
+                name: role
+            })
+
+        }).then ((foundRole) => {
+
+            // if no role found, then throw error
+            if (!foundRole) {
+                throw new Error ('no role found');
+            }
+
+            // if the role is found then return a promise to create a user
             return User.create ({
                 first_name,
                 last_name,
                 email,
                 mobile,
                 password,
-                roleId: mongoose.Types.ObjectId (roleId)
+                roleId: mongoose.Types.ObjectId (foundRole._id)
             })
 
         }).then ((created_user) => {

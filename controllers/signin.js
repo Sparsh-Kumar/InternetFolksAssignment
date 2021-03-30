@@ -6,7 +6,7 @@ const path = require ('path');
 const { User } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'User'));
 const jwt = require ('jsonwebtoken');
 const _ = require ('lodash');
-const { validateEmail, validatePassword, validateRole } = require (path.resolve (__dirname, '..', 'validators', 'validator'));
+const { validateEmail, validatePassword } = require (path.resolve (__dirname, '..', 'validators', 'validator'));
 const { config } = require (path.resolve (__dirname, '..', 'config', 'config'));
 
 // defining the signin controller
@@ -17,7 +17,7 @@ const signin = (req, res) => {
         const { email, password, role } = _.pick (req.body, ['email', 'password', 'role']);
         
         // if the values that are passed in are not valid, then throw an error
-        if ((!validateEmail (email)) || (!validatePassword (password)) || (!validateRole (role))) {
+        if ((!validateEmail (email)) || (!validatePassword (password))) {
             throw new Error ('please enter your data in correct format');
         }
 
