@@ -26,7 +26,7 @@ const { getAllProfiles } = require (path.resolve (__dirname, '..', 'controllers'
 const { createSchool } = require (path.resolve (__dirname, '..', 'controllers', 'createSchool')); // importing the createSchool controller for creating schools, only principal can create schools
 const { getAllStudents } = require (path.resolve (__dirname, '..', 'controllers', 'getAllStudents')); // importing the getAllStudents controller for getting students in a particular school using schoolId
 const { getAllRoles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllRoles')); // importing the getAllRoles controller to get all the roles available
-
+const { createRole } = require (path.resolve (__dirname, '..', 'controllers', 'createRole')); // importing the createRole controller to create a new Role (only usable by admin account)
 
 // defining the register route for admin, student and principal
 
@@ -87,6 +87,18 @@ RouteHandler.get ('/dashboard/getallstudents/:schoolId', loginMiddleware, checkR
 // information of which roles are available
 
 RouteHandler.get ('/dashboard/getallroles', loginMiddleware, checkRole (['student', 'admin', 'principal']), checkScope ('role-get'), getAllRoles); // this is the api endpoint for getting all roles available
+
+
+// GIVEN BELOW ARE THE ROUTES THAT CAN BE ACCESSIBLE USING "ADMIN" ROLE ONLY
+// AS ONLY AN ADMIN SHOULD BE ABLE TO
+// 1. CREATE A ROLE
+// 2. EDIT A ROLE
+// 3. DELETE A ROLE
+
+// route for creating a role
+// only admin is able to use this route, otherwise an error is thrown
+
+RouteHandler.post ('/dashboard/createrole', loginMiddleware, checkRole (['admin']), checkScope ('role-create'), createRole); // this is the api endpoint for creating a new role
 
 // exporting the RouteHandler
 module.exports = {

@@ -5,6 +5,7 @@
 const mongoose = require ('mongoose');
 const path = require ('path');
 const { config } = require (path.resolve (__dirname, '..', '..', 'config', 'config'));
+const uniqueValidator = require ('mongoose-unique-validator');
 
 // defining the Role Schema
 
@@ -14,6 +15,7 @@ const RoleSchema = new mongoose.Schema ({
         type: String,
         required: true,
         trim: true,
+        unique: true,
         enum: [
             'student',
             'admin',
@@ -28,6 +30,10 @@ const RoleSchema = new mongoose.Schema ({
     }
 
 }, { timestamps: true });
+
+// making use of mongoose unique validator plugin
+
+RoleSchema.plugin (uniqueValidator);
 
 // making the Role Model
 
