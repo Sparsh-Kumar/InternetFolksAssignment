@@ -16,6 +16,8 @@ const { forgotPassword } = require (path.resolve (__dirname, '..', 'controllers'
 const { resetPassword } = require (path.resolve (__dirname, '..', 'controllers', 'resetPassword')); // importing the resetPassword controller
 const { loginMiddleware } = require (path.resolve (__dirname, '..', 'middlewares', 'loginMiddleware')); // importing the login Middleware to check for authenticity
 const { getSingle } = require (path.resolve (__dirname, '..', 'controllers', 'getSingle')); // importing the getSingle controller to get the account details of a particulat user (but no confidential details such as passwords).
+const { checkRole } = require (path.resolve (__dirname, '..', 'middlewares', 'checkRole')); // importing the checkRole middleware to check for route accessing permissions
+const { checkScope } = require (path.resolve (__dirname, '..', 'middlewares', 'checkScope')); // importing the checkScope middleware to check for operation permissions
 
 // defining the register route for admin, student and principal
 
@@ -28,7 +30,7 @@ RouteHandler.patch ('/forgotpassword', forgotPassword); // defining the route fo
 RouteHandler.patch ('/resetpassword/:id/:token', resetPassword); // defining the route for resetting the password with new password
 
 // defining all the dashboard routes, these all api endpoints need authentication and scopes for permission
-RouteHandler.get ('/dashboard/getsingle/:userId', loginMiddleware, getSingle); // add checkscopePermission middleware after loginMiddleware
+RouteHandler.get ('/dashboard/getsingle/:userId', loginMiddleware, checkRole (['admin', 'student', 'principal']), checkScope ('user-get'), getSingle); // add checkscopePermission middleware after loginMiddleware
 
 
 

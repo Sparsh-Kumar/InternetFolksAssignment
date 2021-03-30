@@ -65,9 +65,9 @@ const validatePhone = (phone_number = undefined) => {
 const validateRole = (role = undefined) => {
     
     let role_Hash = {
-        student: "6061cd4f713cbde77add0f12", // id of student role
-        admin: "6061cd49713cbde77add0f11", // id of admin role
-        principal: "6061cd54713cbde77add0f13" // id of principal role
+        student: "6062bb795debf1524f083393", // id of student role
+        admin: "6062bb795debf1524f083392", // id of admin role
+        principal: "6062bb795debf1524f083394" // id of principal role
     };
 
     if (!role) {

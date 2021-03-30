@@ -29,7 +29,7 @@ const loginMiddleware = (req, res, next) => {
 
         User.findOne ({
             _id: decodedToken._id
-        }).then ((user) => {
+        }).populate ('roleId').exec ().then ((user) => {
 
             // if there is no user with the id specified in the token
             // then throw an error
