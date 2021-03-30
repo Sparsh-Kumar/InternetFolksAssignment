@@ -23,6 +23,8 @@ const { profileCreate } = require (path.resolve (__dirname, '..', 'controllers',
 const { getAllSchools } = require (path.resolve (__dirname, '..', 'controllers', 'getAllSchools')); // importing the getAllSchools controller for getting a list of all schools 
 const { removeAccount } = require (path.resolve (__dirname, '..', 'controllers', 'removeAccount')); // importing the removeAccount controller for removing a account of any role permanently from database
 const { getAllProfiles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllProfiles')); // importing the getAllProfiles controller for getting all the profiles
+const { createSchool } = require (path.resolve (__dirname, '..', 'controllers', 'createSchool')); // importing the createSchool controller for creating schools, only principal can create schools
+const { getAllStudents } = require (path.resolve (__dirname, '..', 'controllers', 'getAllStudents')); // importing the getAllStudents controller for getting students in a particular school using schoolId
 
 // defining the register route for admin, student and principal
 
@@ -67,6 +69,16 @@ RouteHandler.get ('/dashboard/getallprofiles', loginMiddleware, checkRole (['adm
 // anyone admin, student, principal can remove their accounts
 
 RouteHandler.delete ('/dashboard/removeaccount', loginMiddleware, checkRole (['student', 'admin', 'principal']), checkScope ('user-remove'), removeAccount); // this is the api endpoint for removing the account associated
+
+// route for creating a school document
+// only principal can create school documents
+
+RouteHandler.post ('/dashboard/createschool', loginMiddleware, checkRole (['principal']), checkScope ('school-create'), createSchool); // this is the api endpoint for creating schools, only principal role can create school
+
+// route for getting students in a particular school
+// only principal can get students in a particular school
+
+RouteHandler.get ('/dashboard/getallstudents/:schoolId', loginMiddleware, checkRole (['principal']), checkScope ('school-get'), getAllStudents) // this is the api endpoint for getting all students in a particular school
 
 // exporting the RouteHandler
 module.exports = {
