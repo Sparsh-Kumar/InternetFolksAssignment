@@ -25,6 +25,8 @@ const { removeAccount } = require (path.resolve (__dirname, '..', 'controllers',
 const { getAllProfiles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllProfiles')); // importing the getAllProfiles controller for getting all the profiles
 const { createSchool } = require (path.resolve (__dirname, '..', 'controllers', 'createSchool')); // importing the createSchool controller for creating schools, only principal can create schools
 const { getAllStudents } = require (path.resolve (__dirname, '..', 'controllers', 'getAllStudents')); // importing the getAllStudents controller for getting students in a particular school using schoolId
+const { getAllRoles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllRoles')); // importing the getAllRoles controller to get all the roles available
+
 
 // defining the register route for admin, student and principal
 
@@ -79,6 +81,12 @@ RouteHandler.post ('/dashboard/createschool', loginMiddleware, checkRole (['prin
 // only principal can get students in a particular school
 
 RouteHandler.get ('/dashboard/getallstudents/:schoolId', loginMiddleware, checkRole (['principal']), checkScope ('school-get'), getAllStudents) // this is the api endpoint for getting all students in a particular school
+
+// route for getting all the roles 
+// all students, principal and admin should be able to get this
+// information of which roles are available
+
+RouteHandler.get ('/dashboard/getallroles', loginMiddleware, checkRole (['student', 'admin', 'principal']), checkScope ('role-get'), getAllRoles); // this is the api endpoint for getting all roles available
 
 // exporting the RouteHandler
 module.exports = {
