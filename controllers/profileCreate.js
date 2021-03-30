@@ -6,6 +6,7 @@ const path = require ('path');
 const { School } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'School'));
 const { Profile } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'Profile'));
 const { validateNames } = require (path.resolve (__dirname, '..', 'validators', 'validator'));
+const _ = require ('lodash');
 
 // defining the ProfileCreate controller
 

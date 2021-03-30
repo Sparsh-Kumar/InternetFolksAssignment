@@ -31,7 +31,7 @@ const ProfileSchema = new mongoose.Schema ({
         trim: true,
         validate: {
             validator: (last_name) => {
-                return validatenames (last_name);
+                return validateNames (last_name);
             },
             message: '{VALUE} is not a valid last name'
         }
