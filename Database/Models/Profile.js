@@ -49,7 +49,7 @@ const ProfileSchema = new mongoose.Schema ({
     },
 
     schoolId: {
-        type: mongooose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'school',
         required: true
     }

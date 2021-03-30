@@ -6,7 +6,7 @@ const mongoose = require ('mongoose');
 const path = require ('path');
 const { config } = require (path.resolve (__dirname, '..', '..', 'config', 'config'));
 const { validateNames } = require (path.resolve (__dirname, '..', '..', 'validators', 'validator'));
-const { uniqueValidator } = require ('mongoose-unique-validator');
+const uniqueValidator = require ('mongoose-unique-validator');
 
 
 // defining the SchoolSchema

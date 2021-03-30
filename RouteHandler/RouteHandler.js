@@ -22,6 +22,7 @@ const { checkScope } = require (path.resolve (__dirname, '..', 'middlewares', 'c
 const { profileCreate } = require (path.resolve (__dirname, '..', 'controllers', 'profileCreate')); // importing the profile create controller for creating profile of a logged in user
 const { getAllSchools } = require (path.resolve (__dirname, '..', 'controllers', 'getAllSchools')); // importing the getAllSchools controller for getting a list of all schools 
 const { removeAccount } = require (path.resolve (__dirname, '..', 'controllers', 'removeAccount')); // importing the removeAccount controller for removing a account of any role permanently from database
+const { getAllProfiles } = require (path.resolve (__dirname, '..', 'controllers', 'getAllProfiles')); // importing the getAllProfiles controller for getting all the profiles
 
 // defining the register route for admin, student and principal
 
