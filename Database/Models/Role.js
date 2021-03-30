@@ -27,7 +27,7 @@ const RoleSchema = new mongoose.Schema ({
         default: [] // the default scope for a Role is no scope
     }
 
-})
+}, { timestamps: true });
 
 // making the Role Model
 

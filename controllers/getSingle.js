@@ -28,7 +28,7 @@ const getSingle = (req, res) => {
             email: 1,
             mobile: 1,
             roleId: 1
-        }).then ((foundUser) => {
+        }).populate ('roleId').exec ().then ((foundUser) => {
 
             // if no user is found with the given id
             // then throwing the error
