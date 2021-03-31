@@ -27,15 +27,16 @@ const removeRole = (req, res) => {
             }
 
             // if there exists a role then return a promise to remove that role
-            return findOneAndRemove ({
-                name: role
+            return Role.findOneAndRemove ({
+                _id: role._id
             })
 
         }).then ((removed_role) => {
 
             return res.status (200).send ({
                 status: 'success',
-                message: 'role is deleted successfully'
+                message: 'role is deleted successfully',
+                removed_role
             })
 
         }).catch ((error) => {

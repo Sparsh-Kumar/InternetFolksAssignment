@@ -19,7 +19,7 @@ const checkScope = (scope = undefined) => {
             // then throw an Error of "no permission"
 
             if (!req.user.roleId.scopes.includes (scope)) {
-                throw new Error ('please add the scope to the role to perform this operation');
+                throw new Error (`please add the scope "${scope}" to the role to perform this operation`);
             }
 
             // else if the user doc inserted into the request

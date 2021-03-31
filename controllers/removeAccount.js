@@ -29,7 +29,8 @@ const removeAccount = (req, res) => {
 
             return res.status (200).send ({
                 status: 'success',
-                message: 'successfully removed your user account and profile associated with it'
+                message: 'successfully removed your user account and profile associated with it',
+                removedProfile
             })
 
         }).catch ((error) => {
