@@ -18,26 +18,23 @@ const updateUser = (req, res) => {
 
         const { first_name, last_name } = _.pick (req.body, ['first_name', 'last_name']);
 
-        // checking for the validity of first name and last name
-        // if first_name or last_name is not valid
-        // then throw error
-
-        if ((!validateNames (first_name)) || (!validateNames (last_name))) {
-            throw new Error ('first name and last name are not valid names');
-        }
-
         // if the first_name and last_name are of valid format
         // then proceed and make QueryObj
 
+        let QueryObj = {};
+        if (first_name && validateNames (first_name)) {
+            QueryObj ['first_name'] = first_name;
+        }
+        if (last_name && validateNames (last_name)) {
+            QueryObj ['last_name'] = last_name;
+        }
+
+        if (_.isEmpty (QueryObj)) {
+            throw new Error ('please enter valid values');
+        }
+        
         let updated_user = undefined;
         let updated_profile = undefined;
-        let QueryObj = {};
-        if (first_name) {
-            QueryObj [first_name] = first_name;
-        }
-        if (last_name) {
-            QueryObj [last_name] = last_name;
-        }
 
         // Updating the user values
         // according to the QueryObj
