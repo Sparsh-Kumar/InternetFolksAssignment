@@ -11,7 +11,8 @@ const config = {
     PROJECT_URL: 'http://localhost',
     MAIL_SERVICE: 'gmail',
     SENDER_USER: 'SENDER_EMAIL',
-    SENDER_PASSWORD: 'SENDER_PASSWORD'
+    SENDER_PASSWORD: 'SENDER_PASSWORD',
+    API_DOCS_URL: 'https://documenter.getpostman.com/view/11784786/TzCMcnv4'
 }
 
 

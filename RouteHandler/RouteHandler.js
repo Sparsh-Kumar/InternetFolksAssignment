@@ -5,8 +5,10 @@
 const RouteHandler = require ('express').Router ();
 const path = require ('path');
 
-// importing the registration controllers for various roles
 
+
+// importing the registration controllers for various roles
+const { docs } = require (path.resolve (__dirname, '..', 'controllers', 'docs'));
 const { registerAdmin } = require (path.resolve (__dirname, '..',  'controllers', 'registerAdmin'));
 const { registerStudent } = require (path.resolve (__dirname, '..', 'controllers', 'registerStudent'));
 const { registerPrincipal } = require (path.resolve (__dirname, '..', 'controllers', 'registerPrincipal'));
@@ -33,6 +35,7 @@ const { editRole } = require (path.resolve (__dirname, '..', 'controllers', 'edi
 
 // defining the register route for admin, student and principal
 
+RouteHandler.get ('/docs', docs);
 RouteHandler.post ('/signup/admin', registerAdmin);
 RouteHandler.post ('/signup/student', registerStudent);
 RouteHandler.post ('/signup/principal', registerPrincipal);
