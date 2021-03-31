@@ -6,15 +6,14 @@ const path = require ('path');
 const { Role } = require (path.resolve (__dirname, '..', 'Database', 'Models', 'Role'));
 const _  = require ('lodash');
 
-
 // defining the editRole controller 
 
 const editRole = (req, res) => {
 
     try {
 
-        // getting the scopes array from request body
-        const scopes = _.pick (req.body, ['scopes']);
+        // getting the name and scopes array from request body
+        const { name, scopes } = _.pick (req.body, ['name', 'scopes']);
 
         // if there are no scopes or there are empty array scopes
         // then throw an error
@@ -23,23 +22,31 @@ const editRole = (req, res) => {
             throw new Error ('please enter the scopes array in the request body');
         }
 
-        Role.findOneAndUpdate ({
-            name: req.user.roleId.name
-        }, {
-            $set: {
-                scopes
-            }
-        }, { upsert: true, new: true, runValidators: true, context: 'query' }).then ((updatedRole) => {
+        Role.findOne ({
+            name
+        }).then ((foundRole) => {
 
-            // returning the updated user to the client
+            if (!foundRole) {
+                throw new Error ('There is no role with this name');
+            }
+
+            return Role.findOneAndUpdate ({
+                _id: foundRole._id
+            }, {
+                $set: {
+                    scopes
+                }
+            }, { upsert: true, new: true, runValidators: true, context: 'query' })
+
+        }).then ((updatedRole) => {
+
+            // returning the updated Role
             return res.status (200).send ({
                 status: 'success',
                 updatedRole
             })
 
         }).catch ((error) => {
-
-            // if any error occur then returning the error to the client
             return res.status (401).send ({
                 status: 'failure',
                 message: error.message
